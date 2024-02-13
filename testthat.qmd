@@ -1,0 +1,33 @@
+---
+title: "testthat"
+format: html
+editor: visual
+---
+```{r}
+library(testthat)
+
+# Sample dataset
+german_cities <- c("Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Rostock")
+
+# Test 1: Check if all specified cities are present
+test_that("All specified cities are in the dataset", {
+  expected_cities <- c("Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Rostock")
+  expect_set_equal(sort(german_cities), sort(expected_cities))
+})
+
+# Test 2: Check for no additional cities
+test_that("No extra cities are in the dataset", {
+  expected_cities <- c("Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Rostock")
+  all_cities_match <- all(german_cities %in% expected_cities) && all(expected_cities %in% german_cities)
+  expect_true(all_cities_match)
+})
+
+# Test 3: Check if there are exactly 6 cities
+test_that("There are exactly 6 unique cities in the dataset", {
+  expect_equal(length(unique(german_cities)), 6)
+})
+
+# To run these tests, you would typically have this code inside a test file and use testthat::test_file("your_test_file.R") or testthat::test_dir("directory_of_test_files")
+
+```
+
